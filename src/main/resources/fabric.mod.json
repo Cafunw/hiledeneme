@@ -1,0 +1,25 @@
+{
+    "schemaVersion": 1,
+    "id": "hackclient",
+    "version": "1.0",
+    "name": "MinecraftHack",
+    "description": "Educational Hack Client",
+    "authors": [
+        "Me"
+    ],
+    "contact": {},
+    "license": "MIT",
+    "icon": "assets/modid/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": []
+    },
+    "mixins": [
+        "mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.15.11",
+        "minecraft": "1.21.4",
+        "java": ">=21"
+    }
+}

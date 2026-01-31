@@ -1,0 +1,66 @@
+plugins {
+	id 'fabric-loom' version '1.9-SNAPSHOT'
+	id 'maven-publish'
+    id 'java'
+}
+
+version = '1.0'
+group = 'com.hackclient'
+
+base {
+	archivesName = 'MinecraftHack'
+}
+
+repositories {
+	mavenCentral()
+    maven { url = 'https://repo.spongepowered.org/maven' }
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:1.21.4"
+	mappings "net.fabricmc:yarn:1.21.4+build.1:v2"
+	modImplementation "net.fabricmc:fabric-loader:0.16.9"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.115.0+1.21.4"
+
+    // Mixin (Loom adds this automatically usually, but keeping explicit if needed for compile only)
+    // implementation 'org.spongepowered:mixin:0.8.5' 
+    
+    // GUI (ImGui-Java)
+    implementation 'io.github.spair:imgui-java-binding:1.86.10'
+    implementation 'io.github.spair:imgui-java-lwjgl3:1.86.10'
+    
+    // Memory manipulation
+    implementation 'net.bytebuddy:byte-buddy:1.14.12'
+}
+
+processResources {
+	inputs.property "version", project.version
+	filteringCharset "UTF-8"
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
+
+// Minecraft 1.21.4 REQUIRES Java 21
+def targetJavaVersion = 21
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = "UTF-8"
+	if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+		it.options.release.set(targetJavaVersion)
+	}
+}
+
+java {
+	def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+	if (JavaVersion.current() < javaVersion) {
+		toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+	}
+	withSourcesJar()
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_${base.archivesName.get()}" }
+	}
+}

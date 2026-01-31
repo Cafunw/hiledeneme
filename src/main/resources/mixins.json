@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.hackclient.injection.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "MinecraftMixin",
+    "KeyboardMixin",
+    "InGameHudMixin",
+    "WorldRendererMixin"
+  ],
+  "client": [
+    "MinecraftMixin",
+    "KeyboardMixin",
+    "InGameHudMixin",
+    "WorldRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
