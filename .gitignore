@@ -1,0 +1,22 @@
+# Derleme çıktıları
+build/
+.gradle/
+out/
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Log dosyaları
+*.log
+
+# IDE Dosyaları
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
